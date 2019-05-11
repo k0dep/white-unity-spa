@@ -24,16 +24,14 @@ steps:
     feedsToUse: 'select'
     versioningScheme: 'off'
 
-- task: ArchiveFiles@2
+- task: CopyFiles@2
   inputs:
-    rootFolderOrFile: 'build/WhiteUnitySpa/dist'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/spa.zip'
-    replaceExistingArchive: true
+    SourceFolder: 'build/WhiteUnitySpa/dist'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/spa'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/spa'
     ArtifactName: 'White-Unity-Spa'
     publishLocation: 'Container'
