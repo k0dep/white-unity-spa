@@ -2,10 +2,27 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    versioningScheme: 'off'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    arguments: '-c Release -o build'
+    zipAfterPublish: false
+    modifyOutputPath: false
+    feedsToUse: 'select'
+    versioningScheme: 'off'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'build/WhiteUnitySpa/dist'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/spa.zip'
+    replaceExistingArchive: true
