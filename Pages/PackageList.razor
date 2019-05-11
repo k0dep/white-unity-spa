@@ -1,0 +1,42 @@
+@page "/list"
+@inject HttpClient Http
+@inject IConfiguration Config
+
+<h1>Package list</h1>
+
+@if (packagesPage == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var package in packagesPage.Items)
+            {
+                <tr>
+                    <td>@package.Name</td>
+                    <td>@package.ProjectUrl</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@functions {
+    PagingResultDto<PackageInfoDto> packagesPage;
+    int currentPage = 0;
+
+    protected override async Task OnInitAsync()
+    {
+        var searchObject = new { Name = "" };
+        Console.WriteLine(Config["searchUrl"]);
+        packagesPage = await Http.PostJsonAsync<PagingResultDto<PackageInfoDto>>(Config["searchUrl"], searchObject);
+    }
+}
