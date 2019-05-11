@@ -11,11 +11,15 @@ namespace WhiteUnitySpa.Objects
         public string UrlForManifest { get; set; }
     }
 
-    public class PagingResultDto<TItem>
+    public class PagingResultBaseDto
     {
         public int Count { get; set; }
         public int ItemsPerPage { get; set; }
         public int Page { get; set; }
+    }
+
+    public class PagingResultDto<TItem> : PagingResultBaseDto
+    {
         public IEnumerable<TItem> Items { get; set; }
     }
 }

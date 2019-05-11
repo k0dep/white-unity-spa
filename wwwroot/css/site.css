@@ -133,3 +133,23 @@ app {
         display: block;
     }
 }
+
+.gh-btn {
+    border: 1px solid #c5c9cc;
+    border-radius: 0.25em;
+    background-color: #eff3f6;
+    background-image: -webkit-linear-gradient(top, #fafbfc, #eff3f6 90%);
+    background-image: -moz-linear-gradient(top, #fafbfc, #eff3f6 90%);
+    background-image: linear-gradient(180deg, #fafbfc, #eff3f6 90%);
+    background-position: -1px -1px;
+    background-repeat: repeat-x;
+    background-size: 110% 110%;
+    border-color: rgba(27,31,35,0.2);
+    cursor: pointer;
+}
+
+.gh-btn-cnt {
+    cursor: pointer;
+    border: 1px solid #c5c9cc;
+    border-radius: 0.25em;
+}

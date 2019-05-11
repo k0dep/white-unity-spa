@@ -1,0 +1,42 @@
+<nav aria-label="...">
+  <ul class="pagination">
+
+    <li class="page-item">
+      <a class="page-link" onclick=@(() => OnChange(Page.Page-1))>Previous</a>
+    </li>
+
+    @foreach (var index in Enumerable.Range(0, (Page.Count / Page.ItemsPerPage) + 1))
+    {
+      var currentIndex = index; // closure
+      var humanIndex = currentIndex + 1;
+
+      @if(Page.Page == currentIndex)
+      {
+        <li class="page-item active">
+          <a class="page-link" onclick=@(() => OnChange(currentIndex))>@humanIndex</a>
+        </li>
+      }
+      else
+      {
+        <li class="page-item">
+          <a class="page-link" onclick=@(() => OnChange(currentIndex))>@humanIndex<span class="sr-only">(current)</span></a>
+        </li>
+      }
+    }
+
+    <li class="page-item">
+      <a class="page-link" onclick=@(() => OnChange(Page.Page+1))>Next</a>
+    </li>
+  </ul>
+</nav>
+
+@functions {
+  public Action<int> OnChangePage;
+
+  [Parameter] PagingResultBaseDto Page { get; set; }
+
+  private void OnChange(int page)
+  {
+    OnChangePage?.Invoke(page);
+  }
+}

@@ -1,7 +1,7 @@
 @inject HttpClient Http
 @inject IConfiguration Config
 
-<h1>Package list</h1>
+<h1>Available packages</h1>
 
 @if (packagesPage == null)
 {
@@ -9,28 +9,18 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Url</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var package in packagesPage.Items)
-            {
-                <tr>
-                    <td>@package.Name</td>
-                    <td>@package.ProjectUrl</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <Pager Page=@packagesPage />
+
+    @foreach (var package in packagesPage.Items)
+    {
+        <PackageCard Package="@package" />
+    }
+
+    <Pager Page=@packagesPage />
 }
 
 @functions {
     PagingResultDto<PackageInfoDto> packagesPage;
-    int currentPage = 0;
 
     protected override async Task OnInitAsync()
     {
