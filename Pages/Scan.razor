@@ -1,0 +1,59 @@
+@page "/scan"
+
+@inject HttpClient Http
+@inject IConfiguration Config
+
+<h1>Add package</h1>
+
+@if (isRequest)
+{
+    <p><em>Scan GitHub...</em></p>
+}
+else
+{
+    <p>Enter repository full name <input type="text" bind="@Query" /> <button onclick="@ScanPackage">GO!</button> </p>
+
+    @if(isError)
+    {
+        <h3>Error. Try later</h3>
+    }
+    else
+    {
+        @if(addedPackageInfo != null)
+        {
+            <h3> Package found! </h3>
+            <p> FullName: @addedPackageInfo.FullName </p>
+            <p> Repository url: @addedPackageInfo.ProjectUrl </p>
+        }
+        else
+        {
+            <h3>Package not found!</h3>
+        }
+    }
+}
+
+@functions {
+    string Query;
+    PackageInfoDto addedPackageInfo;
+    bool isError;
+    bool isRequest;
+
+    private async Task ScanPackage()
+    {
+        addedPackageInfo = null;
+        isRequest = true;
+        isError = false;
+
+        try
+        {
+            addedPackageInfo = await Http.GetJsonAsync<PackageInfoDto>(string.Format(Config["scanUrl"], Query));
+        }
+        catch
+        {
+            Console.WriteLine("Error. scan request fail");
+            isError = true;
+        }
+
+        isRequest = false;
+    }
+}
