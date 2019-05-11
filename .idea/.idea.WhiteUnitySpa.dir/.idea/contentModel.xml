@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.1/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.1/system/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_.19.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p=".gitignore" t="Include" />
+      <e p="App.razor" t="Include" />
+      <e p="Common" t="Include">
+        <e p="AsyncUtils.cs" t="Include" />
+        <e p="ConfigurationExtensions.cs" t="Include" />
+        <e p="EnvironmentChooser.cs" t="Include" />
+        <e p="InMemoryFileProvider.cs" t="Include" />
+      </e>
+      <e p="Configuration" t="Include">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+      </e>
+      <e p="Objects" t="Include">
+        <e p="Objects.cs" t="Include" />
+      </e>
+      <e p="Pages" t="Include">
+        <e p="Counter.razor" t="Include" />
+        <e p="FetchData.razor" t="Include" />
+        <e p="Index.razor" t="Include" />
+        <e p="PackageList.razor" t="Include" />
+        <e p="Scan.razor" t="Include" />
+        <e p="_Imports.razor" t="Include" />
+      </e>
+      <e p="Program.cs" t="Include" />
+      <e p="Shared" t="Include">
+        <e p="MainLayout.razor" t="Include" />
+        <e p="NavMenu.razor" t="Include" />
+        <e p="SurveyPrompt.razor" t="Include" />
+      </e>
+      <e p="Startup.cs" t="Include" />
+      <e p="WhiteUnitySpa.csproj" t="IncludeRecursive" />
+      <e p="_Imports.razor" t="Include" />
+      <e p="azure-pipelines.yml" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netstandard2.0" t="Include">
+            <e p="WhiteUnitySpa.AssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="wwwroot" t="Include">
+        <e p="css" t="Include">
+          <e p="bootstrap" t="Include">
+            <e p="bootstrap.min.css" t="Include" />
+            <e p="bootstrap.min.css.map" t="Include" />
+          </e>
+          <e p="open-iconic" t="Include">
+            <e p="FONT-LICENSE" t="Include" />
+            <e p="ICON-LICENSE" t="Include" />
+            <e p="README.md" t="Include" />
+            <e p="font" t="Include">
+              <e p="css" t="Include">
+                <e p="open-iconic-bootstrap.min.css" t="Include" />
+              </e>
+              <e p="fonts" t="Include">
+                <e p="open-iconic.eot" t="Include" />
+                <e p="open-iconic.otf" t="Include" />
+                <e p="open-iconic.svg" t="Include" />
+                <e p="open-iconic.ttf" t="Include" />
+                <e p="open-iconic.woff" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="site.css" t="Include" />
+        </e>
+        <e p="index.html" t="Include" />
+        <e p="sample-data" t="Include">
+          <e p="weather.json" t="Include" />
+        </e>
+      </e>
+    </e>
+  </component>
+</project>
