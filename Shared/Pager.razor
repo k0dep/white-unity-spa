@@ -2,7 +2,7 @@
   <ul class="pagination">
 
     <li class="page-item">
-      <a class="page-link" onclick=@(() => OnChange(Page.Page-1))>Previous</a>
+      <a class="page-link" onclick=@(() => OnChange(Page.Page-1))><span class="oi oi-arrow-thick-left"></span></a>
     </li>
 
     @foreach (var index in Enumerable.Range(0, (Page.Count / Page.ItemsPerPage) + 1))
@@ -25,13 +25,13 @@
     }
 
     <li class="page-item">
-      <a class="page-link" onclick=@(() => OnChange(Page.Page+1))>Next</a>
+      <a class="page-link" onclick=@(() => OnChange(Page.Page+1))><span class="oi oi-arrow-thick-right"></span></a>
     </li>
   </ul>
 </nav>
 
 @functions {
-  public Action<int> OnChangePage;
+  [Parameter] Action<int> OnChangePage { get; set; }
 
   [Parameter] PagingResultBaseDto Page { get; set; }
 

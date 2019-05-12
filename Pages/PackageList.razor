@@ -3,29 +3,73 @@
 
 <h1>Available packages</h1>
 
+<div class="input-group mb-3">
+      <input bind=@Query class="form-control py-2" type="search" value="search" />
+      <span class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" onclick=@Search>
+            <span class="oi oi-magnifying-glass"></span>
+        </button>
+      </span>
+</div>
+
 @if (packagesPage == null)
 {
-    <p><em>Loading...</em></p>
+    if(!IsError)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <p><em>Loading error! Reload this page.</em></p>
+    }
 }
 else
 {
-    <Pager Page=@packagesPage />
+    <Pager Page=@packagesPage OnChangePage=@(p => Load(p)) />
 
     @foreach (var package in packagesPage.Items)
     {
         <PackageCard Package="@package" />
     }
 
-    <Pager Page=@packagesPage />
+    <Pager Page=@packagesPage OnChangePage=@(p => Load(p)) />
 }
 
 @functions {
-    PagingResultDto<PackageInfoDto> packagesPage;
+    PagingResultDto<PackageInfoDto> packagesPage { get; set; }
+    string Query { get; set; } = "";
+    bool IsError { get; set; }
 
     protected override async Task OnInitAsync()
     {
-        var searchObject = new { Name = "" };
-        Console.WriteLine(Config["searchUrl"]);
-        packagesPage = await Http.PostJsonAsync<PagingResultDto<PackageInfoDto>>(Config["searchUrl"], searchObject);
+        await Load(0);
+    }
+
+    async Task Load(int page)
+    {
+        packagesPage = null;
+        IsError = false;
+        this.StateHasChanged();
+
+        var searchObject = new {
+            Name = Query,
+            Page = page
+        };
+
+        try
+        {
+            packagesPage = await Http.PostJsonAsync<PagingResultDto<PackageInfoDto>>(Config["searchUrl"], searchObject);
+        }
+        catch
+        {
+            IsError = true;
+        }
+
+        this.StateHasChanged();
+    }
+
+    void Search()
+    {
+        Load(0);
     }
 }

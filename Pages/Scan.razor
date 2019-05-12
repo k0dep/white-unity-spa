@@ -22,10 +22,9 @@ else
         @if(addedPackageInfo != null)
         {
             <h3> Package found! </h3>
-            <p> FullName: @addedPackageInfo.FullName </p>
-            <p> Repository url: @addedPackageInfo.ProjectUrl </p>
+            <PackageCard Package=@addedPackageInfo />
         }
-        else
+        else if (!string.IsNullOrEmpty(Query))
         {
             <h3>Package not found!</h3>
         }
