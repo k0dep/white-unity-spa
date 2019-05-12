@@ -1,39 +1,56 @@
 <nav aria-label="...">
-  <ul class="pagination">
+  <ul class="pagination justify-content-end">
 
-    <li class="page-item">
-      <a class="page-link" onclick=@(() => OnChange(Page.Page-1))><span class="oi oi-arrow-thick-left"></span></a>
+    <li class=@PrevClass>
+      <a class="page-link" onclick=@(() => OnChange(Page.Page-1))><span class="oi oi-arrow-left"></span></a>
     </li>
 
-    @foreach (var index in Enumerable.Range(0, (Page.Count / Page.ItemsPerPage) + 1))
+    @foreach (var index in GetPageRange())
     {
       var currentIndex = index; // closure
       var humanIndex = currentIndex + 1;
+      var currentPageClass = "page-item" + (Page.Page == currentIndex ? " active" : "");
 
-      @if(Page.Page == currentIndex)
-      {
-        <li class="page-item active">
-          <a class="page-link" onclick=@(() => OnChange(currentIndex))>@humanIndex</a>
-        </li>
-      }
-      else
-      {
-        <li class="page-item">
-          <a class="page-link" onclick=@(() => OnChange(currentIndex))>@humanIndex<span class="sr-only">(current)</span></a>
-        </li>
-      }
+      <li class=@currentPageClass>
+        <a class="page-link" onclick=@(() => OnChange(currentIndex))>@humanIndex</a>
+      </li>
     }
 
-    <li class="page-item">
-      <a class="page-link" onclick=@(() => OnChange(Page.Page+1))><span class="oi oi-arrow-thick-right"></span></a>
+    <li class=@NextClass>
+      <a class="page-link" onclick=@(() => OnChange(Page.Page+1))><span class="oi oi-arrow-right"></span></a>
     </li>
   </ul>
 </nav>
 
 @functions {
   [Parameter] Action<int> OnChangePage { get; set; }
-
   [Parameter] PagingResultBaseDto Page { get; set; }
+
+  string PrevClass { get; set; } = "page-item";
+  string NextClass { get; set; } = "page-item";
+
+  const int PageHalfRange = 5;
+  int PagesCount => (Page.Count / Page.ItemsPerPage) + 1;
+
+  IEnumerable<int> GetPageRange()
+  {
+    var min = Math.Max(0, Page.Page - PageHalfRange);
+    var max = Math.Min(PagesCount, Page.Page + PageHalfRange + 1);
+    return Enumerable.Range(min, max - min);
+  }
+
+  protected override void OnInit()
+  {
+    if(PagesCount <= (Page.Page + 2))
+    {
+      NextClass += " disabled";
+    }
+
+    if(Page.Page <= 0)
+    {
+      PrevClass += " disabled";
+    }
+  }
 
   private void OnChange(int page)
   {
