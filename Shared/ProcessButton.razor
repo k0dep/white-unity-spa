@@ -1,0 +1,33 @@
+@inject HttpClient Http
+
+<button type="button" class="btn btn-primary btn-sm" onclick=@Execute>
+    @if(isProcess){
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+    }
+    @text
+</button>
+
+@functions {
+    [Parameter]
+    public string text { get; set; }
+
+    [Parameter]
+    public string link { get; set; }
+
+    private bool isProcess;
+
+    public async void Execute()
+    {
+        isProcess = true;
+        try
+        {
+            await Http.GetAsync(link);
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine("error: " + e.ToString());
+        }
+        isProcess = false;
+        StateHasChanged();
+    }
+}
