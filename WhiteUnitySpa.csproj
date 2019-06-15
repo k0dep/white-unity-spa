@@ -23,4 +23,8 @@
     <EmbeddedResource Include="Configuration\appsettings.*.json" />  
   </ItemGroup>
 
+  <ItemGroup>
+    <Watch Include="**\*.razor;**\*.cs" />
+  </ItemGroup>
+
 </Project>
